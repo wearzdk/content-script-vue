@@ -2,6 +2,8 @@
 // import $ from 'jquery' // 你可以使用jquery来进行dom操作
 import Window from './components/Window.vue'
 
+const isOpen = useExtStorage('isOpen', true)
+
 function bootstrap() {
   // 你的代码
 }
@@ -14,14 +16,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="app" class="lz-crx-app bg-canvas text-text1">
+  <div id="crx-app" class="bg-canvas text-text1">
     <Window title="脚本标题" :width="200">
-      <!--  -->
+      <button>
+        <span>按钮</span>
+      </button>
     </Window>
   </div>
 </template>
 
-<style lang="less">
+<style lang="scss">
 .lz-crx-app {
   // 纠正样式
   text-align: left;
@@ -30,5 +34,7 @@ onMounted(() => {
   @apply text-text1 bg-canvas;
   font-size: 14px;
   line-height: 1.5;
+  @import 'style/reset';
+  @import 'style/base';
 }
 </style>

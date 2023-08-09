@@ -56,10 +56,10 @@ const GMExt: ExtStorage = {
 }
 
 function getEngine() {
-  if (chrome?.storage?.local)
+  if (typeof chrome !== 'undefined' && chrome?.storage?.local)
     return chrome.storage.local as ExtStorage
   // firefox
-  if (browser?.storage?.local)
+  if (typeof browser !== 'undefined' && browser?.storage?.local)
     return browser.storage.local as ExtStorage
   if (typeof GM_setValue === 'function' && typeof GM_getValue === 'function')
     return GMExt

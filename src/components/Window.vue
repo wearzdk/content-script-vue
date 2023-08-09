@@ -135,7 +135,7 @@ if (props.resizable) {
         cursor: isOnPinned ? 'default' : 'move',
       }"
     >
-      <span>{{ title }}</span>
+      <span class="indent-0">{{ title }}</span>
       <div class="lz-ctrl-bar">
         <!-- setting -->
         <span v-if="showSetting" class="i-mdi-cog" @click="setting" />
@@ -194,7 +194,7 @@ if (props.resizable) {
     }
   }
 .lz-panel-content {
-    padding: 20px 25px;
+    padding: 15px 20px;
     overflow: auto;
     min-height: 40px;
     min-width: 200px;
