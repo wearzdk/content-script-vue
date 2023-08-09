@@ -25,7 +25,7 @@ export default defineConfig({
       watchFilePaths: ['package.json', 'manifest.json'],
       scriptViteConfig: {
         build: {
-          minify: false,
+          minify: true, // 是否压缩
         },
       },
     }),

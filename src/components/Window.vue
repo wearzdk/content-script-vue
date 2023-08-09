@@ -41,6 +41,10 @@ const dragStyle = ref<string>('')
 const dragHead = ref<HTMLElement | null>(null)
 const contentBox = ref<HTMLElement | null>(null)
 onMounted(() => {
+  const contentBoxRect = computed(() => {
+    return contentBox.value?.getBoundingClientRect() || { height: 0, width: 0 }
+  })
+
   let initX = Number(localStorage.getItem('initX') || innerWidth / 4.2)
   let initY = Number(localStorage.getItem('initY') || 80)
   // props 覆盖
@@ -50,9 +54,18 @@ onMounted(() => {
   if (props.left)
     initX = props.left
 
-  const contentBoxRect = computed(() => {
-    return contentBox.value?.getBoundingClientRect() || { height: 0, width: 0 }
-  })
+  // 修正负数
+  if (initX < 0)
+    initX = 0
+  if (initY < 0)
+    initY = 0
+
+  // 修正超出屏幕
+  if (initX > innerWidth - contentBoxRect.value.width)
+    initX = innerWidth - contentBoxRect.value.width
+  if (initY > innerHeight - contentBoxRect.value.height)
+    initY = innerHeight - contentBoxRect.value.height
+
   const { style } = useDraggable(dragHead, {
     initialValue: { x: initX, y: initY },
     preventDefault: true,
@@ -145,7 +158,7 @@ if (props.resizable) {
 <style scoped lang="less">
 .lz-crx-content-box {
   position: fixed;
-  z-index: 999999999;
+  z-index: 9999;
   display: flex;
   min-width: 200px;
   min-height: 70px;
