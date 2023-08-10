@@ -58,9 +58,11 @@ export default defineConfig({
         // 尽可能将样式限制在当前脚本内
         prefixer({
           prefix: `#${ROOT_ID}`,
+          // 忽略的选择器
           exclude: ['*', ':root', ':host', ':host-context', ':slotted'],
           transform(prefix, selector, prefixedSelector, filePath, _rule) {
             // console.log(selector, 'filePath', filePath)
+            // 你也可以在此处进行更精细的筛选
             // 不处理包含scoped
             if (filePath.includes('scoped'))
               return String(selector) || ''
