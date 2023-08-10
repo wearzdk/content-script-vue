@@ -1,3 +1,4 @@
+// 模拟输入 针对现代虚拟DOM框架
 function imitateInput(el: any, val: string) {
   if (!el)
     return

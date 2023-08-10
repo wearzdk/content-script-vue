@@ -8,6 +8,9 @@
     "96": "icon/96.png",
     "128": "icon/128.png"
   },
+  "permissions": [
+    "storage"
+  ],
   "content_scripts": [
     {
       "matches": [

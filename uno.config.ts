@@ -61,11 +61,6 @@ export default defineConfig({
     },
   },
   shortcuts: {
-    'warp': 'whitespace-pre-line break-words',
-    'no-warp': 'overflow-hidden whitespace-nowrap text-ellipsis',
-    'input': 'w-full h-8 px-2 border bg-fill2 border-border rounded focus:outline-none focus:ring-1 focus:ring-primary',
-    'icon': 'inline-block',
-    'btn-base': 'bg-transparent flex items-center hover:bg-fill3 rounded-lg px-2',
-    'btn-primary': 'bg-primary text-white hover:bg-secondary',
+    input: 'w-full h-8 px-2 border bg-fill2 border-border rounded focus:outline-none focus:ring-1 focus:ring-primary',
   },
 })

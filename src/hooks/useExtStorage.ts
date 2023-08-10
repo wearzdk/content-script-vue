@@ -71,7 +71,6 @@ export function useExtStorage<T>(key: string, defaultValue: T, option?: WatchOpt
   const data = ref<T>(defaultValue)
   const sync = async () => {
     const res = await $db.get(key)
-    console.log(res)
     if (res && res[key])
       data.value = res[key]
     else

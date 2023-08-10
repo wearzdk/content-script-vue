@@ -1,11 +1,17 @@
 <script lang="ts" setup>
+import { formatDate } from '@vueuse/core'
+
+const props = defineProps<{
+  height?: string
+}>()
+
 interface LogItem {
   id: number
   time: number
   type: string
   content: string
 }
-const maxHeight = ref('200px')
+const maxHeight = ref(props.height || '150px')
 const allLogs = ref<LogItem[]>([
   {
     id: 0,
@@ -15,22 +21,12 @@ const allLogs = ref<LogItem[]>([
   },
 ])
 const logContent = ref<HTMLElement>()
-function dayFormat(time: number) {
-  const date = new Date(time)
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-  // 补零
-  const formatNumber = (n: number) => {
-    const r = n.toString()
-    return r[1] ? r : `0${r}`
-  }
-  return [hour, minute, second].map(formatNumber).join(':')
-}
+
+let id = 0
 
 function addLog(type: string, content: string) {
   allLogs.value.push({
-    id: allLogs.value.length,
+    id: id++,
     time: Date.now(),
     type,
     content,
@@ -44,10 +40,12 @@ function addLog(type: string, content: string) {
 }
 
 // 定时清理日志
-setInterval(() => {
-  if (allLogs.value.length > 100)
-    allLogs.value = allLogs.value.slice(50)
-}, 1000 * 60 * 5)
+whenever(
+  () => allLogs.value.length > 100,
+  () => {
+    allLogs.value = allLogs.value.slice(-50)
+  },
+)
 
 defineExpose({
   addLog,
@@ -59,7 +57,7 @@ defineExpose({
     <div ref="logContent" class="crx-log-content">
       <div v-for="item in allLogs" :key="item.id" class="crx-log-item">
         <div class="crx-log-item">
-          <span class="crx-log-item-time">{{ dayFormat(item.time) }}</span>
+          <span class="crx-log-item-time">{{ formatDate(new Date(item.time), "HH:mm:ss") }}</span>
           <span class="crx-log-item-content">{{ item.content }}</span>
         </div>
       </div>
@@ -75,29 +73,28 @@ defineExpose({
   &-content {
     flex: 1;
     overflow-y: auto;
-    background-color: #181818;
-    height: calc(v-bind(maxHeight) - 40px);
-    padding: 10px 20px;
+    @apply bg-dark-1 dark:bg-dark-3;
+    height: v-bind(maxHeight);
+    padding: 8px 10px;
     &::-webkit-scrollbar {
       width: 8px;
-      background-color: #181818;
+      @apply bg-dark-1;
     }
     &::-webkit-scrollbar-track {
       border-radius: 3px;
-      background-color: #181818;
     }
     &::-webkit-scrollbar-thumb {
       border-radius: 10px;
-      background-color: #555;
+      @apply bg-dark-4;
     }
     .crx-log-item {
-      margin-bottom: 6px;
-      color: #fff;
-      font-size: 14px;
-      line-height: 1.5;
+      @apply text-light-1;
+      font-size: 13px;
+      line-height: 20px;
+      height: 20px;
       .crx-log-item-time {
-        color: #999;
-        margin-right: 20px;
+        @apply text-light-2;
+        margin-right: 10px;
       }
     }
   }
