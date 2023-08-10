@@ -1,9 +1,8 @@
 使用Vite、Vue3和TypeScript开发浏览器脚本，集成常用工具库，支持打包为油猴脚本。
 
 <picture>
-<img src="./assets/image.png" alt="示例" align="left" />
+<img src="./assets/image.png" alt="示例" />
 </picture>
-<br clear="left" />
 
 ### 特性
 
