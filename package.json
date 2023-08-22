@@ -30,6 +30,7 @@
     "@vueuse/core": "^10.3.0",
     "esno": "^0.17.0",
     "less": "^4.2.0",
+    "naive-ui": "^2.34.4",
     "postcss-prefix-selector": "^1.16.0",
     "typescript": "^5.1.6",
     "unocss": "^0.55.2",

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 // import $ from 'jquery' // 你可以使用jquery来进行dom操作
+import { NButton } from 'naive-ui'
+import { NConfigProvider, darkTheme } from 'naive-ui'
 import Logs from './components/Logs.vue'
 import Window from './components/Window.vue'
 
@@ -16,7 +18,6 @@ function addLog(content: string, type: string = 'info') {
 function bootstrap() {
   // 你的代码
 }
-
 function loop() {
   if (!isRunning.value)
     return
@@ -31,30 +32,34 @@ function loop() {
     addLog('yyy')
 }
 
+const dark = useCrxDark()
+
 onMounted(() => {
-  useCrxDark()
   bootstrap()
   setInterval(loop, 300)
+})
+const naiveUiTheme = computed(() => {
+  return dark.value ? darkTheme : undefined
 })
 </script>
 
 <template>
-  <div class="lz-crx-container">
+  <NConfigProvider class="lz-crx-container" :theme="naiveUiTheme">
     <div id="crx-app" class="bg-canvas text-text1">
       <Window title="脚本标题" :width="300">
         <div>
-          <button v-if="!isRunning" class="bg-primary py-1 px-2 text-white rounded-2" @click="ToggleRunning()">
+          <NButton v-if="!isRunning" @click="ToggleRunning()">
             运行
-          </button>
-          <button v-else class="bg-primary py-1 px-2 text-white rounded-2" @click="ToggleRunning()">
+          </NButton>
+          <NButton v-else @click="ToggleRunning()">
             停止
-          </button>
+          </NButton>
         </div>
         <!-- 日志 -->
         <Logs ref="logInst" class="mt-2" />
       </Window>
     </div>
-  </div>
+  </NConfigProvider>
 </template>
 
 <style lang="less">
