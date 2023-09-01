@@ -32,7 +32,7 @@
     "less": "^4.2.0",
     "naive-ui": "^2.34.4",
     "postcss-prefix-selector": "^1.16.0",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "unocss": "^0.55.2",
     "unocss-preset-theme": "^0.9.1",
     "unplugin-auto-import": "^0.16.6",
