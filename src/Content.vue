@@ -1,7 +1,6 @@
 <script setup lang="ts">
 // import $ from 'jquery' // 你可以使用jquery来进行dom操作
-import { NButton } from 'naive-ui'
-import { NConfigProvider, darkTheme } from 'naive-ui'
+import { NButton, NConfigProvider, darkTheme } from 'naive-ui'
 import Logs from './components/Logs.vue'
 import Window from './components/Window.vue'
 
