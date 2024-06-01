@@ -24,7 +24,7 @@ const ROOT_ID = `crx-root${Math.floor(Math.random() * 10000)}`
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
-    __ROOT_ID__: ROOT_ID,
+    __ROOT_ID__: JSON.stringify(ROOT_ID),
   },
   plugins: [
     vue(),

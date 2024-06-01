@@ -7,7 +7,7 @@ import 'uno.css'
 import App from './Content.vue'
 
 const root = document.createElement('div')
-root.id = '__ROOT_ID__'
+root.id = __ROOT_ID__
 
 document.body.appendChild(root)
 

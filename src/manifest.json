@@ -19,7 +19,8 @@
       "js": [
         "src/content.ts"
       ],
-      "run_at": "document_end"
+      "run_at": "document_end",
+      "world": "MAIN"
     }
   ]
 }

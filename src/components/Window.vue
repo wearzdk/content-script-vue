@@ -19,10 +19,7 @@ const emits = defineEmits<{
 }>()
 
 // dark
-let dark: Ref<boolean> = ref(false)
-onMounted(() => {
-  dark = useCrxDark()
-})
+const dark = useCrxDark()
 
 function toggleDark() {
   dark.value = !dark.value
