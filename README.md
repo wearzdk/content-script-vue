@@ -4,6 +4,12 @@
 <img src="./assets/image.png" alt="示例" />
 </picture>
 
+### 更新说明
+
+- 新增 hook-vue.ts 脚本，便于 Vue3 应用逆向。
+- 更换 eslint 为 biome，减少依赖，更快。
+- vue.ts 新增了若干工具函数。
+
 ### 特性
 
 - 基于Vite构建，可充分利用Vite生态插件
@@ -18,20 +24,20 @@
 
 ### 使用
 
-> 建议使用[pnpm](https://pnpm.io/zh/)安装依赖，节省磁盘空间
+> 建议使用[bun](https://bun.sh/)
 
 > IDE推荐使用VSCode，并安装项目推荐的插件
 
 ```bash
 git clone https://github.com/wearzdk/content-script-vue.git # 克隆项目
 cd content-script-vue # 进入项目目录
-pnpm install # 安装依赖
-pnpm dev # 启动开发
+bun install # 安装依赖
+bun dev # 启动开发
 
 # 打包为扩展
-pnpm build
+bun run build
 # 打包为油猴脚本
-pnpm build-tm
+bun run build-tm
 ```
 
 脚本信息可在`src/manifest.ts`、`package.json`中修改
@@ -40,7 +46,7 @@ pnpm build-tm
 ### 注意事项
 
 - 脚本css样式将默认限制在脚本容器内，不会影响原网页样式，如须修改可在vite.config.ts中配置要忽略的样式选择器
-- 在MV3规则下，部分操作是不允许的（如动态注入其他代码），具体可参考[chrome官方文档](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/)
+- 脚本默认运行在主世界（MAIN）中，便于访问所有页面变量，但仅支持Chrome108及以上版本，且无法与background service worker通信，详情查看[chrome script](https://developer.chrome.com/docs/extensions/reference/api/scripting?hl=zh-cn#type-ExecutionWorld)
 - 一些现代网站使用虚拟DOM，如Vue、React等，此时使用浏览器原生的点击、输入等操作可能无法触发事件，可使用内置的模拟点击、输入脚本
 
 ### 帮助文档

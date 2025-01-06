@@ -1,85 +1,90 @@
-import type { WatchOptions } from 'vue'
+import type { WatchOptions } from 'vue';
 
 interface ExtStorage {
-  get: (key: string) => Promise<{ [key: string]: any } | null>
-  set: (data: { [key: string]: any }) => Promise<void>
+  get: (key: string) => Promise<{ [key: string]: any } | null>;
+  set: (data: { [key: string]: any }) => Promise<void>;
 }
 
 // localStorage engine
 const localStorageExt: ExtStorage = {
   get: (key: string) => {
     return new Promise((resolve) => {
-      const value = localStorage.getItem(key)
+      const value = localStorage.getItem(key);
       if (value) {
-        resolve({ [key]: JSON.parse(value) })
-        return
+        resolve({ [key]: JSON.parse(value) });
+        return;
       }
-      resolve(null)
-    })
+      resolve(null);
+    });
   },
   set: (data: { [key: string]: any }) => {
     return new Promise((resolve) => {
       for (const item in data)
-        localStorage.setItem(item, JSON.stringify(data[item]))
+        localStorage.setItem(item, JSON.stringify(data[item]));
 
-      resolve()
-    })
+      resolve();
+    });
   },
-}
+};
 
 // 定义类型
-declare const chrome: any
-declare const browser: any
-declare const GM_setValue: any
-declare const GM_getValue: any
+declare const chrome: any;
+declare const browser: any;
+declare const GM_setValue: any;
+declare const GM_getValue: any;
 
 // GM engine
 const GMExt: ExtStorage = {
   get: (key: string) => {
     return new Promise((resolve) => {
-      const value = GM_getValue(key)
+      const value = GM_getValue(key);
       if (value) {
-        resolve({ [key]: JSON.parse(value) })
-        return
+        resolve({ [key]: JSON.parse(value) });
+        return;
       }
-      resolve(null)
-    })
+      resolve(null);
+    });
   },
   set: (data: { [key: string]: any }) => {
     return new Promise((resolve) => {
-      for (const item in data)
-        GM_setValue(item, JSON.stringify(data[item]))
+      for (const item in data) GM_setValue(item, JSON.stringify(data[item]));
 
-      resolve()
-    })
+      resolve();
+    });
   },
-}
+};
 
 function getEngine() {
   if (typeof chrome !== 'undefined' && chrome?.storage?.local)
-    return chrome.storage.local as ExtStorage
+    return chrome.storage.local as ExtStorage;
   // firefox
   if (typeof browser !== 'undefined' && browser?.storage?.local)
-    return browser.storage.local as ExtStorage
+    return browser.storage.local as ExtStorage;
   if (typeof GM_setValue === 'function' && typeof GM_getValue === 'function')
-    return GMExt
-  return localStorageExt
+    return GMExt;
+  return localStorageExt;
 }
 
-const $db = getEngine()
-export function useExtStorage<T>(key: string, defaultValue: T, option?: WatchOptions) {
-  const data = ref<T>(defaultValue)
+const $db = getEngine();
+export function useExtStorage<T>(
+  key: string,
+  defaultValue: T,
+  option?: WatchOptions,
+) {
+  const data = ref<T>(defaultValue);
   const sync = async () => {
-    const res = await $db.get(key)
-    if (res && res[key])
-      data.value = res[key]
-    else
-      $db.set({ [key]: toRaw(data.value) })
-  }
+    const res = await $db.get(key);
+    if (res?.[key]) data.value = res[key];
+    else $db.set({ [key]: toRaw(data.value) });
+  };
   sync().then(() => {
-    watch(data, () => {
-      $db.set({ [key]: toRaw(data.value) })
-    }, option)
-  })
-  return data
+    watch(
+      data,
+      () => {
+        $db.set({ [key]: toRaw(data.value) });
+      },
+      option,
+    );
+  });
+  return data;
 }

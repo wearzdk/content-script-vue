@@ -1,49 +1,46 @@
 <script setup lang="ts">
 // import $ from 'jquery' // 你可以使用jquery来进行dom操作
-import { NButton, NConfigProvider, darkTheme } from 'naive-ui'
-import Logs from './components/Logs.vue'
-import Window from './components/Window.vue'
+import { NButton, NConfigProvider, darkTheme } from 'naive-ui';
+// biome-ignore lint/style/useImportType: <explanation>
+import Logs from './components/Logs.vue';
+import Window from './components/Window.vue';
 
 // useExtStorage 自动选择chrome.storage.local或GM.getValue/GM.setValue
 // 可用于配置存储
-const isRunning = useExtStorage('isRunning', false)
-const ToggleRunning = useToggle(isRunning)
+const isRunning = useExtStorage('isRunning', false);
+const ToggleRunning = useToggle(isRunning);
 
-const logInst = ref<InstanceType<typeof Logs>>()
-function addLog(content: string, type: string = 'info') {
-  logInst.value?.addLog(type, content)
+const logInst = ref<InstanceType<typeof Logs>>();
+function addLog(content: string, type = 'info') {
+  logInst.value?.addLog(type, content);
 }
 
 function bootstrap() {
   // 你的代码
 }
 function loop() {
-  if (!isRunning.value)
-    return
+  if (!isRunning.value) return;
   // 循环执行，可用于自动流程类 如不需要可删除
-  addLog('循环执行')
+  addLog('循环执行');
   // 你的代码
-  const location = window.location.href
-  if (location.includes('xxx'))
-    addLog('xxx')
-
-  else if (location.includes('yyy'))
-    addLog('yyy')
+  const location = window.location.href;
+  if (location.includes('xxx')) addLog('xxx');
+  else if (location.includes('yyy')) addLog('yyy');
 }
 
-const dark = useCrxDark()
+const dark = useCrxDark();
 
 onMounted(() => {
-  bootstrap()
-  setInterval(loop, 300)
-})
+  bootstrap();
+  setInterval(loop, 300);
+});
 const naiveUiTheme = computed(() => {
-  return dark.value ? darkTheme : undefined
-})
+  return dark.value ? darkTheme : undefined;
+});
 </script>
 
 <template>
-  <NConfigProvider class="lz-crx-container" :theme="naiveUiTheme">
+  <NConfigProvider class="kf-crx-container" :theme="naiveUiTheme">
     <div id="crx-app" class="bg-canvas text-text1">
       <Window title="脚本标题" :width="300">
         <div>
@@ -62,7 +59,7 @@ const naiveUiTheme = computed(() => {
 </template>
 
 <style lang="less">
-.lz-crx-container {
+.kf-crx-container {
   // 纠正样式
   text-align: left;
   // 通用样式

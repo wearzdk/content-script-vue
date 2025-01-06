@@ -8,17 +8,11 @@
     "96": "icon/96.png",
     "128": "icon/128.png"
   },
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["storage"],
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "src/content.ts"
-      ],
+      "matches": ["<all_urls>"],
+      "js": ["src/content.ts"],
       "run_at": "document_end",
       "world": "MAIN"
     }

@@ -6,7 +6,7 @@
     "antfu.vite",
     "antfu.goto-alias",
     "csstools.postcss",
-    "dbaeumer.vscode-eslint",
+    "biomejs.biome",
     "streetsidesoftware.code-spell-checker"
   ]
 }

@@ -1,10 +1,14 @@
-import { defineConfig, presetAttributify, presetUno } from 'unocss'
-import transformerDirectives from '@unocss/transformer-directives'
-import presetIcons from '@unocss/preset-icons'
-import presetTheme from 'unocss-preset-theme'
-import type { PresetThemeOptions } from 'unocss-preset-theme'
+import {
+  defineConfig,
+  presetAttributify,
+  presetIcons,
+  presetUno,
+  transformerDirectives,
+} from 'unocss';
+import presetTheme from 'unocss-preset-theme';
+import type { PresetThemeOptions } from 'unocss-preset-theme';
 
-import type { Theme } from 'unocss/preset-uno'
+import type { Theme } from 'unocss/preset-uno';
 
 const themes: PresetThemeOptions<Theme> = {
   theme: {
@@ -31,20 +35,21 @@ const themes: PresetThemeOptions<Theme> = {
       },
     },
   },
-}
+};
 
 export default defineConfig({
   presets: [
-    presetAttributify({ /* preset options */}),
+    presetAttributify({
+      /* preset options */
+    }),
     presetUno(),
     presetIcons({
       prefix: 'i-',
     }),
+    // @ts-ignore
     presetTheme(themes),
   ],
-  transformers: [
-    transformerDirectives(),
-  ],
+  transformers: [transformerDirectives()],
   theme: {
     colors: {
       primary: '#7071F5',
@@ -61,6 +66,7 @@ export default defineConfig({
     },
   },
   shortcuts: {
-    input: 'w-full h-8 px-2 border bg-fill2 border-border rounded focus:outline-none focus:ring-1 focus:ring-primary',
+    input:
+      'w-full h-8 px-2 border bg-fill2 border-border rounded focus:outline-none focus:ring-1 focus:ring-primary',
   },
-})
+});
